@@ -3,6 +3,8 @@ import LoginUser from '../components/LoginUser.vue';
 // import HomePage from '../views/HomePage.vue';
 // import SidebarLayout from '../layouts/SidebarLayout.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
+import FederalCreate from '@/views/federal/FederalCreate.vue';
+import FederalEdit from '@/views/federal/FederalEdit.vue';
 
 const routes = [
   {
@@ -20,7 +22,17 @@ const routes = [
         path: '/federal',
         name: 'Federal',
         component: () =>import('@/views/federal/Federal.vue')
-      }
+      },
+      {
+        path: '/federal/create',
+        name: 'FederalCreate',
+        component: () =>import('@/views/federal/FederalCreate.vue')
+       },
+      {
+        path: '/federal/edit',
+        name: 'FederalEdit',
+        component: () =>import('@/views/federal/FederalEdit.vue')
+       },
     ],
     meta: { requiresAuth: true }
   },

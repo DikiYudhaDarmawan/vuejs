@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -15,12 +17,16 @@ export default {
     };
   },
   mounted() {
-    // Ambil data dari JSON Server saat komponen dimount
-    // Gunakan Axios untuk melakukan GET request ke '/posts'
+    axios.get('http://localhost:8080/posts')
+      .then(response => {
+        this.posts = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
   }
 };
 </script>
-
 <style>
 /* Tidak perlu styling khusus */
 </style>

@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -29,14 +31,27 @@ export default {
     };
   },
   mounted() {
-    // Ambil data post yang akan diedit dari JSON Server saat komponen dimount
-    // Gunakan Axios untuk melakukan GET request ke '/posts/:id'
-    // Isi nilai editedPost dengan data post yang diperoleh
+    axios.get(`http://localhost:8080/posts/${this.postId}`)
+      .then(response => {
+        this.post = response.data;
+        this.editedPost.title = this.post.title;
+        this.editedPost.body = this.post.body;
+      })
+      .catch(error => {
+        console.error('Error fetching post:', error);
+      });
   },
   methods: {
     updatePost() {
-      // Kirim data post yang sudah diedit ke JSON Server menggunakan Axios PUT request
-      // Setelah berhasil, kembalikan ke halaman sebelumnya
+      axios.put(`http://localhost:8080/posts/${this.postId}`, this.editedPost)
+        .then(response => {
+          console.log('Post updated:', response.data);
+          // Kembali ke halaman sebelumnya setelah berhasil mengupdate post
+          this.$router.go(-1);
+        })
+        .catch(error => {
+          console.error('Error updating post:', error);
+        });
     }
   }
 };

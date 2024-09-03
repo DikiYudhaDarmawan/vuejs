@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -26,8 +28,16 @@ export default {
   },
   methods: {
     addPost() {
-      // Kirim data baru ke JSON Server menggunakan Axios POST request
-      // Setelah berhasil, kosongkan formulir
+      axios.post('http://localhost:8080/posts', this.newPost)
+        .then(response => {
+          console.log('New post added:', response.data);
+          // Kosongkan formulir setelah berhasil menambahkan post
+          this.newPost.title = '';
+          this.newPost.body = '';
+        })
+        .catch(error => {
+          console.error('Error adding post:', error);
+        });
     }
   }
 };
